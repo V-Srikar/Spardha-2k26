@@ -6,7 +6,6 @@ import forest from "@/assets/forest.jpg";
 import logo from "@/assets/spardha-logo.png";
 import acm from "@/assets/acm-logo.png";
 import campusMap from "@/assets/campus-map.jpg";
-import { RegistrationModal } from "@/components/RegistrationModal";
 import { initSmoothScroll } from "@/lib/smooth-scroll";
 import { initPageTransition } from "@/lib/page-transition";
 import { initTextReveal } from "@/lib/text-reveal";
@@ -14,6 +13,11 @@ import { SpotEvents } from "@/components/SpotEvents";
 import { ContactSection } from "@/components/ContactSection";
 import { AboutScene } from "@/components/AboutScene";
 import { EventsDoor, type MapEvent } from "@/components/EventsDoor";
+
+import codePoster from "@/assets/main/code-dunes.jpg";
+import unseenPoster from "@/assets/main/prompt-the-unknown.jpg";
+import seasPoster from "@/assets/main/the-cursed-seas.jpg";
+import signalPoster from "@/assets/main/the-last-signal.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,15 +35,11 @@ const NAV = ["home", "about", "events", "campus", "contact"] as const;
 
 type Ev = MapEvent;
 const EVENTS: Ev[] = [
-  { id: "code", name: "Code Dunes", tag: "Competitive programming challenge", date: "12 October 2026", time: "9:00 AM – 1:00 PM", day: "Day 1 · First Discovery", team: "Individual (1)", extra: "Event 1 · Duration: 90 Minutes", closing: "", x: "39%", y: "29%", hs: [[7.5, 11.6, 25, 26.3], [33, 21, 12.4, 14.8]], about: "Code Dunes is a competitive programming challenge featuring 5 algorithmic problems of increasing difficulty. Participants compete individually on HackerRank, with submissions automatically evaluated against hidden test cases and scores reflected on the live leaderboard.", rules: ["Solve all 5 challenges within 90 minutes.", "3 Medium and 2 Hard problems.", "Any programming language supported by HackerRank is allowed.", "Mobile phone usage is prohibited.", "Single round; final rankings are based on score and performance."] },
-  { id: "unseen", name: "Prompt the Unseen", tag: "Generative AI Challenge", date: "12 October 2026", time: "12:00 PM – 3:00 PM", day: "Day 1 · First Discovery", team: "2 members (exactly 2)", extra: "Event 2 · Rounds: 3 × 40 Minutes", closing: "", x: "39%", y: "56%", hs: [[8.5, 39.8, 23.2, 27], [33, 48, 11.9, 15.8]], about: "A Generative AI challenge testing AI knowledge, prompt engineering, creativity, and innovation through three rounds—knowledge, AI image generation, and AI video creation.", rules: ["Each team must have exactly 2 participants.", "Bring your own smartphone or laptop.", "Complete each round within the allotted time.", "Only shortlisted teams advance.", "Organizers' decisions are final."] },
-  { id: "seas", name: "The Cursed Seas", tag: "Dare the Depths. Claim the Doom.", date: "13 October 2026", time: "9:00 AM – 1:00 PM", day: "Day 2 · Beyond the Known", team: "Individual", extra: "Event 1 · Duration: 2 Hours", closing: "Think. Solve. Survive. Conquer the Seas.", x: "63%", y: "30%", hs: [[70.2, 11.1, 23.8, 26.5], [55.2, 21.9, 15.2, 17.2]], about: "A pirate-themed technical adventure combining puzzles, logic, and programming challenges. Solve each challenge, unlock the next stage, and survive the journey to discover the hidden treasure.", rules: ["Complete each challenge to unlock the next stage.", "Wrong answers cost a life/attempt.", "No skipping or bypassing challenges.", "Follow the instructions on each challenge screen.", "Complete the journey to claim the treasure."] },
-  { id: "signal", name: "The Last Signal", tag: "Technical clue-solving expedition", date: "13 October 2026", time: "12:00 PM – 3:00 PM", day: "Day 2 · Beyond the Known", team: "2 members", extra: "Event 2 · Rounds: 20 Min · 10 Min · 30 Min", closing: "", x: "65%", y: "62%", hs: [[71.8, 42.7, 24.2, 26.9], [59, 53.8, 11.6, 17.6]], about: "Navigate the unknown by solving technical clues, identifying routes, and reaching the destination. The final round combines grid-solving and system challenges, testing teamwork, logic, and communication.", rules: ["Start at SOURCE and follow clues to reach DEST.", "Identify the correct nodes and backtrack when instructed.", "In Round 3, one participant solves grids while the other solves system questions.", "Complete each round within the allotted time.", "Organizers' decisions are final."] },
+  { id: "code", name: "Code Dunes", tag: "Competitive programming challenge", date: "12 October 2026", time: "9:00 AM – 1:00 PM", day: "Day 1 · First Discovery", team: "Individual (1)", extra: "Event 1 · Duration: 90 Minutes", closing: "", x: "39%", y: "29%", poster: codePoster, hs: [[7.5, 11.6, 25, 26.3], [33, 21, 12.4, 14.8]], about: "Code Dunes is a competitive programming challenge featuring 5 algorithmic problems of increasing difficulty. Participants compete individually on HackerRank, with submissions automatically evaluated against hidden test cases and scores reflected on the live leaderboard.", rules: ["Solve all 5 challenges within 90 minutes.", "3 Medium and 2 Hard problems.", "Any programming language supported by HackerRank is allowed.", "Mobile phone usage is prohibited.", "Single round; final rankings are based on score and performance."] },
+  { id: "unseen", name: "Prompt the Unseen", tag: "Generative AI Challenge", date: "12 October 2026", time: "12:00 PM – 3:00 PM", day: "Day 1 · First Discovery", team: "2 members (exactly 2)", extra: "Event 2 · Rounds: 3 × 40 Minutes", closing: "", x: "39%", y: "56%", poster: unseenPoster, hs: [[8.5, 39.8, 23.2, 27], [33, 48, 11.9, 15.8]], about: "A Generative AI challenge testing AI knowledge, prompt engineering, creativity, and innovation through three rounds—knowledge, AI image generation, and AI video creation.", rules: ["Each team must have exactly 2 participants.", "Bring your own smartphone or laptop.", "Complete each round within the allotted time.", "Only shortlisted teams advance.", "Organizers' decisions are final."] },
+  { id: "seas", name: "The Cursed Seas", tag: "Dare the Depths. Claim the Doom.", date: "13 October 2026", time: "9:00 AM – 1:00 PM", day: "Day 2 · Beyond the Known", team: "Individual", extra: "Event 1 · Duration: 2 Hours", closing: "Think. Solve. Survive. Conquer the Seas.", x: "63%", y: "30%", poster: seasPoster, hs: [[70.2, 11.1, 23.8, 26.5], [55.2, 21.9, 15.2, 17.2]], about: "A pirate-themed technical adventure combining puzzles, logic, and programming challenges. Solve each challenge, unlock the next stage, and survive the journey to discover the hidden treasure.", rules: ["Complete each challenge to unlock the next stage.", "Wrong answers cost a life/attempt.", "No skipping or bypassing challenges.", "Follow the instructions on each challenge screen.", "Complete the journey to claim the treasure."] },
+  { id: "signal", name: "The Last Signal", tag: "Technical clue-solving expedition", date: "13 October 2026", time: "12:00 PM – 3:00 PM", day: "Day 2 · Beyond the Known", team: "2 members", extra: "Event 2 · Rounds: 20 Min · 10 Min · 30 Min", closing: "", x: "65%", y: "62%", poster: signalPoster, hs: [[71.8, 42.7, 24.2, 26.9], [59, 53.8, 11.6, 17.6]], about: "Navigate the unknown by solving technical clues, identifying routes, and reaching the destination. The final round combines grid-solving and system challenges, testing teamwork, logic, and communication.", rules: ["Start at SOURCE and follow clues to reach DEST.", "Identify the correct nodes and backtrack when instructed.", "In Round 3, one participant solves grids while the other solves system questions.", "Complete each round within the allotted time.", "Organizers' decisions are final."] },
 ];
-
-
-const SIZES: Record<string, [number, number]> = { code: [1, 1], unseen: [2, 2], seas: [1, 1], signal: [2, 2] };
-const REG_EVENTS = EVENTS.map((e) => ({ id: e.id, name: e.name, day: e.day.split(" · ")[0], size: SIZES[e.id] }));
 
 // Hotspots over campus-map.jpg: [name, left%, top%, width%, height%]
 const SPOTS: [string, number, number, number, number][] = [
@@ -94,7 +94,7 @@ function useScrollY() {
   return y;
 }
 
-function Nav({ active, onRegister }: { active: string; onRegister: () => void }) {
+function Nav({ active }: { active: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
   useEffect(() => {
@@ -123,7 +123,7 @@ function Nav({ active, onRegister }: { active: string; onRegister: () => void })
           ))}
         </nav>
         <div className="site-nav__right">
-          <button type="button" onClick={() => { setMenu(false); onRegister(); }} className="site-nav__cta">REGISTER</button>
+          <span className="site-nav__cta cursor-default select-none">REGISTRATIONS OPENING SOON</span>
           <button type="button" className="site-nav__burger" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} onClick={() => setMenu((m) => !m)}><span /><span /><span /></button>
         </div>
       </div>
@@ -131,7 +131,7 @@ function Nav({ active, onRegister }: { active: string; onRegister: () => void })
         {NAV.map((n) => (
           <a key={n} href={`#${n}`} onClick={() => setMenu(false)} className={`site-nav__plink ${active === n ? "is-active" : ""}`}>{n.toUpperCase()}</a>
         ))}
-        <button type="button" onClick={() => { setMenu(false); onRegister(); }} className="site-nav__cta site-nav__cta--wide">REGISTER NOW</button>
+        <span className="site-nav__cta site-nav__cta--wide cursor-default select-none">REGISTRATIONS OPENING SOON</span>
       </div>
     </header>
   );
@@ -237,7 +237,6 @@ function Index() {
   const [active, setActive] = useState("home");
   const [ev, setEv] = useState<Ev | null>(null);
   const [place, setPlace] = useState<string | null>(null);
-  const [reg, setReg] = useState<{ open: boolean; id: string | null }>({ open: false, id: null });
   const [zoom, setZoom] = useState(false);
   const y = useScrollY();
 
@@ -261,7 +260,7 @@ function Index() {
     <main className="bg-background text-foreground">
       <Backdrop ready={loaded} />
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
-      <Nav active={active} onRegister={() => setReg({ open: true, id: null })} />
+      <Nav active={active} />
       <Chrome />
       <Rail active={active} />
 
@@ -303,7 +302,7 @@ function Index() {
             <p className="mt-3 font-serif text-xl font-semibold italic text-parchment">Choose a territory. Begin your discovery.</p>
           </div>
         </div>
-        <EventsDoor events={EVENTS} ev={ev} onPick={setEv} onRegister={(id) => setReg({ open: true, id })} />
+        <EventsDoor events={EVENTS} ev={ev} onPick={setEv} />
         <div className="relative z-10 mx-auto max-w-6xl px-4">
           <div className="scrim mx-auto mt-28 max-w-3xl px-6 py-8 text-center">
             <h2 className="engraved text-4xl font-bold md:text-6xl">SPOT EVENTS</h2>
@@ -354,7 +353,7 @@ function Index() {
           <p className="mt-14 font-display font-semibold tracking-[0.3em] text-primary">VVITU ACM / SPARDHA 2K26</p>
           <div className="mt-4 flex flex-wrap justify-center gap-5 font-display text-[11px] font-semibold tracking-[0.25em] text-parchment/90">
             {NAV.map((n) => <a key={n} href={`#${n}`} className="hover:text-parchment">{n.toUpperCase()}</a>)}
-            <button type="button" onClick={() => setReg({ open: true, id: null })} className="hover:text-parchment">REGISTER</button>
+            <span className="text-primary/90">REGISTRATIONS OPENING SOON</span>
           </div>
           <p className="mt-6 text-sm font-medium text-parchment/90">acm.vvit@gmail.com · +91 78426 71226</p>
           <p className="text-sm font-medium text-parchment/90">Vasireddy Venkatadri International Technological University, Nambur, Guntur — 522508</p>
@@ -362,7 +361,6 @@ function Index() {
         </div>
         <div className="h-40 bg-gradient-to-b from-transparent to-background" />
       </footer>
-      <RegistrationModal open={reg.open} eventId={reg.id} events={REG_EVENTS} onClose={() => setReg({ open: false, id: null })} />
     </main>
   );
 }

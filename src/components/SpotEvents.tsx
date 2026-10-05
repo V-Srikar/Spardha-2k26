@@ -7,7 +7,7 @@ import rollOfRuins from "@/assets/spot/roll-of-ruins.jpg";
 import coinQuest from "@/assets/spot/coin-quest.jpg";
 import flipWar from "@/assets/spot/flip-war.jpg";
 import blindArchitect from "@/assets/spot/blind-architect.jpg";
-import cursedTreasure from "@/assets/spot/cursed-treasure.jpg";
+import stringBound from "@/assets/spot/string-bound.jpg";
 
 export const SPOT = [
   { name: "Grid Raiders", poster: gridRaiders },
@@ -18,7 +18,7 @@ export const SPOT = [
   { name: "Coin Quest", poster: coinQuest },
   { name: "Flip War", poster: flipWar },
   { name: "Blind Architect", poster: blindArchitect },
-  { name: "Cursed Treasure", poster: cursedTreasure },
+  { name: "String Bound", poster: stringBound },
 ];
 
 export function SpotEvents() {

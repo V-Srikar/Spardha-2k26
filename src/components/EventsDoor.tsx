@@ -5,6 +5,7 @@ import eventsMap from "@/assets/events-map.jpg";
 export type MapEvent = {
   id: string; name: string; tag: string; date: string; time: string; day: string; team: string;
   about: string; rules: string[]; x: string; y: string; extra?: string; closing?: string;
+  poster?: string;
   hs: [number, number, number, number][]; // clickable rects on the map image: [left%, top%, w%, h%]
 };
 
@@ -13,7 +14,7 @@ const smooth = (t: number) => t * t * (3 - 2 * t);
 const seg = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
 
 /** Scroll-driven scene: a vine-covered stone gate splits open, light floods out, and the expedition map arrives through it. */
-export function EventsDoor({ events, ev, onPick, onRegister }: { events: MapEvent[]; ev: MapEvent | null; onPick: (e: MapEvent | null) => void; onRegister: (id: string) => void }) {
+export function EventsDoor({ events, ev, onPick, onRegister }: { events: MapEvent[]; ev: MapEvent | null; onPick: (e: MapEvent | null) => void; onRegister?: (id: string) => void }) {
   const wrap = useRef<HTMLDivElement>(null);
   const left = useRef<HTMLDivElement>(null);
   const right = useRef<HTMLDivElement>(null);
@@ -99,11 +100,17 @@ export function EventsDoor({ events, ev, onPick, onRegister }: { events: MapEven
         {ev && (
           <div className="animate-rise absolute inset-0 z-30 flex items-center justify-center bg-ink/50 p-3 md:p-8">
             <div className="woodboard grid max-h-full w-full max-w-4xl gap-6 overflow-auto p-5 md:grid-cols-[220px_1fr] md:p-8">
-              <div className="parchment flex aspect-[3/4] flex-col items-center justify-center p-4 text-center" style={{ transform: "rotate(-2deg)" }}>
-                <p className="font-display text-[10px] font-bold tracking-[0.3em]">SPARDHA 2K26</p>
-                <p className="mt-4 font-display text-2xl font-bold">{ev.name}</p>
-                <p className="mt-2 font-serif text-lg font-semibold italic">{ev.tag}</p>
-              </div>
+              {ev.poster ? (
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md border border-primary/40 shadow-2xl">
+                  <img src={ev.poster} alt={`${ev.name} poster`} className="h-full w-full object-cover" />
+                </div>
+              ) : (
+                <div className="parchment flex aspect-[3/4] flex-col items-center justify-center p-4 text-center" style={{ transform: "rotate(-2deg)" }}>
+                  <p className="font-display text-[10px] font-bold tracking-[0.3em]">SPARDHA 2K26</p>
+                  <p className="mt-4 font-display text-2xl font-bold">{ev.name}</p>
+                  <p className="mt-2 font-serif text-lg font-semibold italic">{ev.tag}</p>
+                </div>
+              )}
               <div className="text-parchment">
                 <p className="font-display text-xs font-semibold tracking-[0.3em] text-primary legible">{ev.day}</p>
                 <h3 className="engraved mt-1 text-3xl font-bold">{ev.name}</h3>
@@ -113,7 +120,9 @@ export function EventsDoor({ events, ev, onPick, onRegister }: { events: MapEven
                 <ul className="mt-4 space-y-1.5 text-sm font-medium text-parchment">{ev.rules.map((r) => <li key={r}>✦ {r}</li>)}</ul>
                 {ev.closing && <p className="mt-4 font-display text-sm font-semibold tracking-[0.2em] text-primary legible">{ev.closing}</p>}
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <button onClick={() => onRegister(ev.id)} className="shine bg-primary px-5 py-2 font-display text-xs tracking-[0.25em] text-primary-foreground hover:brightness-110">REGISTER NOW</button>
+                  <div className="shine border border-primary/60 bg-primary/20 px-5 py-2 font-display text-xs font-semibold tracking-[0.25em] text-primary">
+                    REGISTRATIONS OPENING SOON
+                  </div>
                   <button onClick={() => onPick(null)} className="border border-parchment/40 px-5 py-2 font-display text-xs tracking-[0.25em] text-parchment hover:bg-parchment/10">BACK TO EXPEDITIONS</button>
                 </div>
               </div>
