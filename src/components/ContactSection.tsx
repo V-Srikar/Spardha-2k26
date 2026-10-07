@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const PHONES = ["+91 78426 71226", "+91 97057 57657", "+91 63019 10041"];
+const PHONES = ["+91 63007 01013", "+91 97057 57657", "+91 63019 10041"];
 
 const EMAIL = "acm.vvit@gmail.com";
 
@@ -266,8 +266,8 @@ export function ContactSection() {
                         done
                           ? "done"
                           : index === next
-                          ? "next"
-                          : ""
+                            ? "next"
+                            : ""
                       }
                     >
                       <i>
@@ -288,8 +288,8 @@ export function ContactSection() {
                         {done
                           ? "Completed"
                           : index === next
-                          ? "Upcoming"
-                          : ""}
+                            ? "Upcoming"
+                            : ""}
                       </em>
                     </li>
                   );

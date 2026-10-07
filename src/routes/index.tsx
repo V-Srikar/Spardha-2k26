@@ -241,23 +241,22 @@ function Nav({
 
   return (
     <header
-      className={`site-nav ${
-        scrolled || menu ? "is-scrolled" : ""
-      } ${menu ? "is-open" : ""}`}
+      className={`site-nav ${scrolled || menu ? "is-scrolled" : ""
+        } ${menu ? "is-open" : ""}`}
     >
       <div className="site-nav__in">
         <div className="site-nav__brand">
-  <a
-    href="#home"
-    aria-label="VVITU ACM"
-  >
-    <img
-      src={acm}
-      alt="VVITU ACM"
-      className="site-nav__acm"
-    />
-  </a>
-</div>
+          <a
+            href="#home"
+            aria-label="VVITU ACM"
+          >
+            <img
+              src={acm}
+              alt="VVITU ACM"
+              className="site-nav__acm"
+            />
+          </a>
+        </div>
 
         <nav
           className="site-nav__links"
@@ -272,11 +271,10 @@ function Nav({
                   ? "true"
                   : undefined
               }
-              className={`site-nav__link ${
-                active === n
+              className={`site-nav__link ${active === n
                   ? "is-active"
                   : ""
-              }`}
+                }`}
             >
               {n.toUpperCase()}
             </a>
@@ -320,11 +318,10 @@ function Nav({
             onClick={() =>
               setMenu(false)
             }
-            className={`site-nav__plink ${
-              active === n
+            className={`site-nav__plink ${active === n
                 ? "is-active"
                 : ""
-            }`}
+              }`}
           >
             {n.toUpperCase()}
           </a>
@@ -368,11 +365,10 @@ function Chrome() {
           window.innerHeight;
 
         if (bar.current) {
-          bar.current.style.transform = `scaleX(${
-            h > 0
+          bar.current.style.transform = `scaleX(${h > 0
               ? window.scrollY / h
               : 0
-          })`;
+            })`;
         }
 
         setShow(window.scrollY > 900);
@@ -443,11 +439,10 @@ function Rail({
           className="group relative flex h-4 w-4 items-center justify-center"
         >
           <span
-            className={`rail-dot ${
-              active === n
+            className={`rail-dot ${active === n
                 ? "is-on"
                 : ""
-            }`}
+              }`}
           />
 
           <span className="rail-tip">
@@ -911,11 +906,10 @@ function Index() {
                           : n,
                       )
                     }
-                    className={`hs ${
-                      place === n
+                    className={`hs ${place === n
                         ? "is-on"
                         : ""
-                    }`}
+                      }`}
                     style={{
                       left: `${x}%`,
                       top: `${y}%`,
@@ -948,11 +942,10 @@ function Index() {
                           : n,
                       )
                     }
-                    className={`border px-3 py-2 text-left font-display text-[11px] font-semibold tracking-[0.15em] ${
-                      place === n
+                    className={`border px-3 py-2 text-left font-display text-[11px] font-semibold tracking-[0.15em] ${place === n
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-background/60 text-parchment"
-                    }`}
+                      }`}
                   >
                     {n.toUpperCase()}
                   </button>
@@ -1044,7 +1037,7 @@ function Index() {
           </div>
 
           <p className="mt-6 text-sm font-medium text-parchment/90">
-            acm.vvit@gmail.com · +91 78426 71226
+            acm.vvit@gmail.com · +91 63007 01013
           </p>
 
           <p className="text-sm font-medium text-parchment/90">
