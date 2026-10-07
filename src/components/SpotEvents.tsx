@@ -6,15 +6,9 @@ import trapOrTreasure from "@/assets/spot/trap-or-treasure.jpg";
 import rollOfRuins from "@/assets/spot/roll-of-ruins.jpg";
 import coinQuest from "@/assets/spot/coin-quest.jpg";
 import flipWar from "@/assets/spot/flip-war.jpg";
-<<<<<<< HEAD
 import stringBound from "@/assets/spot/string-bound.jpg";
 
 
-=======
-import blindArchitect from "@/assets/spot/blind-architect.jpg";
-import stringBound from "@/assets/spot/string-bound.jpg";
-
->>>>>>> 87f7d195d037968f5198ad98853b6babb8c139b6
 export const SPOT = [
   { name: "Grid Raiders", poster: gridRaiders },
   { name: "Temple of Tricks", poster: templeOfTricks },
@@ -23,13 +17,8 @@ export const SPOT = [
   { name: "Roll of Ruins", poster: rollOfRuins },
   { name: "Coin Quest", poster: coinQuest },
   { name: "Flip War", poster: flipWar },
-<<<<<<< HEAD
   { name: "String Bound", poster: stringBound },
  
-=======
-  { name: "Blind Architect", poster: blindArchitect },
-  { name: "String Bound", poster: stringBound },
->>>>>>> 87f7d195d037968f5198ad98853b6babb8c139b6
 ];
 
 export function SpotEvents() {

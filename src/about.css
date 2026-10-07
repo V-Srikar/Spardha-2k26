@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 /* your existing about.css code starts here */
 
 
-=======
->>>>>>> 87f7d195d037968f5198ad98853b6babb8c139b6
 /* ===== About: photographic temple chamber, animated with light / fire / mist / dust ===== */
 .ab { position: relative; overflow: hidden; isolation: isolate; padding: 3.5rem 0 2rem; }
 .ab-stage { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
@@ -143,7 +140,6 @@
 .ab-sc-in .ab-sc-q { font-style: italic; color: #55290a; font-size: clamp(11px, 1.52cqw, 20px); }
 @media (max-width: 900px) { .ab-scroll { display: none; } }
 @media (prefers-reduced-motion: reduce) { .ab-scroll { filter: none !important; transition: none !important; } }
-<<<<<<< HEAD
 /* =========================================================
    SPARDHA 2K26 — SIMPLE ABOUT CHAMBER
    ========================================================= */
@@ -826,5 +822,3 @@
     opacity: 1;
   }
 }
-=======
->>>>>>> 87f7d195d037968f5198ad98853b6babb8c139b6
