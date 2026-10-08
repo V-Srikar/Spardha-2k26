@@ -43,23 +43,14 @@ export function EventsDoor({
     return () => cancelAnimationFrame(timer);
   }, []);
 
-  const day1Events = events.filter((e) =>
-    e.day.toLowerCase().startsWith("day 1"),
-  );
+  const day1Events = events.filter((e) => e.day.toLowerCase().startsWith("day 1"));
 
-  const day2Events = events.filter((e) =>
-    e.day.toLowerCase().startsWith("day 2"),
-  );
+  const day2Events = events.filter((e) => e.day.toLowerCase().startsWith("day 2"));
 
-  const selectedEvents =
-    selectedDay === 1 ? day1Events : day2Events;
+  const selectedEvents = selectedDay === 1 ? day1Events : day2Events;
 
   const handleEventClick = (event: MapEvent) => {
-    const day = event.day
-      .toLowerCase()
-      .startsWith("day 1")
-      ? 1
-      : 2;
+    const day = event.day.toLowerCase().startsWith("day 1") ? 1 : 2;
 
     setSelectedDay(day);
     onPick(event);
@@ -68,10 +59,9 @@ export function EventsDoor({
   return (
     <div className="relative min-h-screen overflow-hidden px-3 py-10 md:px-8 md:py-16">
       <div
-        className={`relative z-10 mx-auto max-w-6xl transition-all duration-500 ease-out ${visible
-            ? "translate-y-0 scale-100 opacity-100"
-            : "translate-y-2 scale-[0.99] opacity-0"
-          }`}
+        className={`relative z-10 mx-auto max-w-6xl transition-all duration-500 ease-out ${
+          visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-2 scale-[0.99] opacity-0"
+        }`}
       >
         {/* MAP */}
         <div className="mx-auto max-w-5xl border border-primary/40 bg-black/40 p-2 shadow-2xl md:p-4">
@@ -79,19 +69,16 @@ export function EventsDoor({
             <img
               src={eventsMap}
               alt="SPARDHA 2K26 expedition events map"
-              className={`h-auto w-full select-none transition-all duration-500 ${ev
-                  ? "scale-[1.01] blur-[5px] brightness-[0.3]"
-                  : "blur-0 brightness-100"
-                }`}
+              className={`h-auto w-full select-none transition-all duration-500 ${
+                ev ? "scale-[1.01] blur-[5px] brightness-[0.3]" : "blur-0 brightness-100"
+              }`}
               loading="lazy"
               decoding="async"
               draggable={false}
             />
 
             {/* DARK OVERLAY */}
-            {ev && (
-              <div className="absolute inset-0 z-10 bg-black/45 backdrop-blur-[2px]" />
-            )}
+            {ev && <div className="absolute inset-0 z-10 bg-black/45 backdrop-blur-[2px]" />}
 
             {/* MAP HOTSPOTS */}
             {!ev &&
@@ -106,8 +93,7 @@ export function EventsDoor({
                     onMouseLeave={() => setHov(null)}
                     onFocus={() => setHov(e.id)}
                     onBlur={() => setHov(null)}
-                    className={`ev-hs ${hov === e.id ? "on" : ""
-                      }`}
+                    className={`ev-hs ${hov === e.id ? "on" : ""}`}
                     style={{
                       left: `${r[0]}%`,
                       top: `${r[1]}%`,
@@ -240,9 +226,7 @@ export function EventsDoor({
                               TEAM
                             </p>
                             <p className="mt-0.5 text-[8px] font-bold uppercase leading-tight text-parchment">
-                              {ev.teamSize === 1
-                                ? "SOLO"
-                                : `${ev.teamSize} MEMBERS`}
+                              {ev.teamSize === 1 ? "SOLO" : `${ev.teamSize} MEMBERS`}
                             </p>
                           </div>
                         </div>
@@ -326,9 +310,7 @@ export function EventsDoor({
                               {ev.name}
                             </h3>
 
-                            <p className="mt-2 text-xs italic text-parchment/70">
-                              {ev.tag}
-                            </p>
+                            <p className="mt-2 text-xs italic text-parchment/70">{ev.tag}</p>
                           </div>
                         </div>
                       )}
@@ -345,9 +327,7 @@ export function EventsDoor({
                           {ev.name}
                         </h3>
 
-                        <p className="mt-1 text-xs italic text-parchment/60">
-                          {ev.tag}
-                        </p>
+                        <p className="mt-1 text-xs italic text-parchment/60">{ev.tag}</p>
                       </div>
 
                       {/* INFO */}
@@ -356,18 +336,14 @@ export function EventsDoor({
                           <p className="font-display text-[8px] font-bold tracking-[0.2em] text-primary">
                             DATE
                           </p>
-                          <p className="mt-1 text-sm font-bold text-parchment">
-                            {ev.date}
-                          </p>
+                          <p className="mt-1 text-sm font-bold text-parchment">{ev.date}</p>
                         </div>
 
                         <div className="border border-primary/30 bg-primary/[0.07] px-3 py-2.5">
                           <p className="font-display text-[8px] font-bold tracking-[0.2em] text-primary">
                             TIME
                           </p>
-                          <p className="mt-1 text-sm font-bold text-parchment">
-                            {ev.time}
-                          </p>
+                          <p className="mt-1 text-sm font-bold text-parchment">{ev.time}</p>
                         </div>
 
                         <div className="border border-primary/50 bg-primary/[0.11] px-3 py-2.5">
@@ -375,9 +351,7 @@ export function EventsDoor({
                             TEAM
                           </p>
                           <p className="mt-1 text-sm font-bold uppercase text-parchment">
-                            {ev.teamSize === 1
-                              ? "SOLO · 1"
-                              : `${ev.teamSize} MEMBERS`}
+                            {ev.teamSize === 1 ? "SOLO · 1" : `${ev.teamSize} MEMBERS`}
                           </p>
                         </div>
 
@@ -403,17 +377,13 @@ export function EventsDoor({
                           <span className="h-px flex-1 bg-primary/20" />
                         </div>
 
-                        <p className="text-sm leading-relaxed text-parchment/85">
-                          {ev.about}
-                        </p>
+                        <p className="text-sm leading-relaxed text-parchment/85">{ev.about}</p>
                       </div>
 
                       {/* EXTRA */}
                       {ev.extra && (
                         <div className="mt-3 border-l-2 border-primary/50 bg-primary/[0.05] px-3 py-2">
-                          <p className="text-xs font-bold text-primary">
-                            {ev.extra}
-                          </p>
+                          <p className="text-xs font-bold text-primary">{ev.extra}</p>
                         </div>
                       )}
 
@@ -432,10 +402,7 @@ export function EventsDoor({
 
                           <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                             {ev.rules.map((rule, index) => (
-                              <p
-                                key={rule}
-                                className="text-[10px] leading-snug text-parchment/75"
-                              >
+                              <p key={rule} className="text-[10px] leading-snug text-parchment/75">
                                 <span className="mr-1 text-primary">
                                   {String(index + 1).padStart(2, "0")}
                                 </span>
@@ -517,10 +484,11 @@ export function EventsDoor({
               setSelectedDay(1);
               onPick(null);
             }}
-            className={`min-h-16 border px-5 py-4 text-left transition-all duration-200 active:scale-[0.98] ${selectedDay === 1
+            className={`min-h-16 border px-5 py-4 text-left transition-all duration-200 active:scale-[0.98] ${
+              selectedDay === 1
                 ? "border-primary bg-primary/20 shadow-[0_0_20px_rgba(212,175,55,0.12)]"
                 : "border-primary/50 bg-background/80 hover:border-primary hover:bg-primary/10"
-              }`}
+            }`}
           >
             <p className="font-display text-[10px] font-semibold tracking-[0.3em] text-primary">
               FIRST DISCOVERY
@@ -541,10 +509,11 @@ export function EventsDoor({
               setSelectedDay(2);
               onPick(null);
             }}
-            className={`min-h-16 border px-5 py-4 text-left transition-all duration-200 active:scale-[0.98] ${selectedDay === 2
+            className={`min-h-16 border px-5 py-4 text-left transition-all duration-200 active:scale-[0.98] ${
+              selectedDay === 2
                 ? "border-primary bg-primary/20 shadow-[0_0_20px_rgba(212,175,55,0.12)]"
                 : "border-primary/50 bg-background/80 hover:border-primary hover:bg-primary/10"
-              }`}
+            }`}
           >
             <p className="font-display text-[10px] font-semibold tracking-[0.3em] text-primary">
               BEYOND THE KNOWN
@@ -564,15 +533,11 @@ export function EventsDoor({
         <div className="mx-auto mt-6 max-w-5xl">
           <div className="mb-5 text-center">
             <p className="font-display text-[10px] font-semibold tracking-[0.4em] text-primary">
-              {selectedDay === 1
-                ? "DAY 1 · FIRST DISCOVERY"
-                : "DAY 2 · BEYOND THE KNOWN"}
+              {selectedDay === 1 ? "DAY 1 · FIRST DISCOVERY" : "DAY 2 · BEYOND THE KNOWN"}
             </p>
 
             <h3 className="engraved mt-2 text-2xl font-bold text-parchment md:text-3xl">
-              {selectedDay === 1
-                ? "CHOOSE YOUR FIRST TERRITORY"
-                : "CONTINUE BEYOND THE KNOWN"}
+              {selectedDay === 1 ? "CHOOSE YOUR FIRST TERRITORY" : "CONTINUE BEYOND THE KNOWN"}
             </h3>
           </div>
 
@@ -629,9 +594,7 @@ export function EventsDoor({
                         DATE
                       </p>
 
-                      <p className="mt-1 text-sm font-bold text-parchment">
-                        {event.date}
-                      </p>
+                      <p className="mt-1 text-sm font-bold text-parchment">{event.date}</p>
                     </div>
 
                     <div className="border border-primary/30 bg-primary/10 px-3 py-3">
@@ -639,9 +602,7 @@ export function EventsDoor({
                         TIME
                       </p>
 
-                      <p className="mt-1 text-sm font-bold text-parchment">
-                        {event.time}
-                      </p>
+                      <p className="mt-1 text-sm font-bold text-parchment">{event.time}</p>
                     </div>
 
                     <div className="border border-primary/50 bg-primary/15 px-3 py-3">
@@ -650,9 +611,7 @@ export function EventsDoor({
                       </p>
 
                       <p className="mt-1 text-sm font-bold uppercase text-parchment">
-                        {event.teamSize === 1
-                          ? "SOLO · 1 MEMBER"
-                          : `${event.teamSize} MEMBERS`}
+                        {event.teamSize === 1 ? "SOLO · 1 MEMBER" : `${event.teamSize} MEMBERS`}
                       </p>
                     </div>
 

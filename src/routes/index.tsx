@@ -37,8 +37,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content:
-          "Explore the unknown. The annual techno fest of VVIT University, Oct 12–13, 2026.",
+        content: "Explore the unknown. The annual techno fest of VVIT University, Oct 12–13, 2026.",
       },
     ],
   }),
@@ -187,28 +186,13 @@ const SPOTS: [string, number, number, number, number][] = [
 /* NAV */
 /* -------------------------------------------------------------------------- */
 
-function Nav({
-  active,
-  onRegister,
-}: {
-  active: string;
-  onRegister: () => void;
-}) {
+function Nav({ active }: { active: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-
     const f = () => {
-      if (ticking) return;
-
-      ticking = true;
-
-      requestAnimationFrame(() => {
-        setScrolled(window.scrollY > 40);
-        ticking = false;
-      });
+      setScrolled(window.scrollY > 40);
     };
 
     f();
@@ -241,40 +225,22 @@ function Nav({
 
   return (
     <header
-      className={`site-nav ${scrolled || menu ? "is-scrolled" : ""
-        } ${menu ? "is-open" : ""}`}
+      className={`site-nav ${scrolled || menu ? "is-scrolled" : ""} ${menu ? "is-open" : ""}`}
     >
       <div className="site-nav__in">
         <div className="site-nav__brand">
-          <a
-            href="#home"
-            aria-label="VVITU ACM"
-          >
-            <img
-              src={acm}
-              alt="VVITU ACM"
-              className="site-nav__acm"
-            />
+          <a href="#home" aria-label="VVITU ACM">
+            <img src={acm} alt="VVITU ACM" className="site-nav__acm" />
           </a>
         </div>
 
-        <nav
-          className="site-nav__links"
-          aria-label="Primary"
-        >
+        <nav className="site-nav__links" aria-label="Primary">
           {NAV.map((n) => (
             <a
               key={n}
               href={`#${n}`}
-              aria-current={
-                active === n
-                  ? "true"
-                  : undefined
-              }
-              className={`site-nav__link ${active === n
-                  ? "is-active"
-                  : ""
-                }`}
+              aria-current={active === n ? "true" : undefined}
+              className={`site-nav__link ${active === n ? "is-active" : ""}`}
             >
               {n.toUpperCase()}
             </a>
@@ -284,24 +250,10 @@ function Nav({
         <div className="site-nav__right">
           <button
             type="button"
-            onClick={onRegister}
-            className="site-nav__cta"
-          >
-            REGISTER
-          </button>
-
-          <button
-            type="button"
             className="site-nav__burger"
-            aria-label={
-              menu
-                ? "Close menu"
-                : "Open menu"
-            }
+            aria-label={menu ? "Close menu" : "Open menu"}
             aria-expanded={menu}
-            onClick={() =>
-              setMenu((m) => !m)
-            }
+            onClick={() => setMenu((m) => !m)}
           >
             <span />
             <span />
@@ -315,28 +267,12 @@ function Nav({
           <a
             key={n}
             href={`#${n}`}
-            onClick={() =>
-              setMenu(false)
-            }
-            className={`site-nav__plink ${active === n
-                ? "is-active"
-                : ""
-              }`}
+            onClick={() => setMenu(false)}
+            className={`site-nav__plink ${active === n ? "is-active" : ""}`}
           >
             {n.toUpperCase()}
           </a>
         ))}
-
-        <button
-          type="button"
-          onClick={() => {
-            onRegister();
-            setMenu(false);
-          }}
-          className="site-nav__cta site-nav__cta--wide"
-        >
-          REGISTER
-        </button>
       </div>
     </header>
   );
@@ -348,57 +284,32 @@ function Nav({
 
 function Chrome() {
   const bar = useRef<HTMLDivElement>(null);
+
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-
     const onScroll = () => {
-      if (ticking) return;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
 
-      ticking = true;
+      if (bar.current) {
+        bar.current.style.transform = `scaleX(${h > 0 ? window.scrollY / h : 0})`;
+      }
 
-      requestAnimationFrame(() => {
-        const h =
-          document.documentElement
-            .scrollHeight -
-          window.innerHeight;
-
-        if (bar.current) {
-          bar.current.style.transform = `scaleX(${h > 0
-              ? window.scrollY / h
-              : 0
-            })`;
-        }
-
-        setShow(window.scrollY > 900);
-
-        ticking = false;
-      });
+      setShow(window.scrollY > 900);
     };
 
     onScroll();
 
-    window.addEventListener(
-      "scroll",
-      onScroll,
-      { passive: true },
-    );
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        onScroll,
-      );
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
   return (
     <>
-      <div
-        ref={bar}
-        className="scroll-progress pointer-events-none"
-      />
+      <div ref={bar} className="scroll-progress pointer-events-none" />
 
       <button
         type="button"
@@ -422,11 +333,7 @@ function Chrome() {
 /* RAIL */
 /* -------------------------------------------------------------------------- */
 
-function Rail({
-  active,
-}: {
-  active: string;
-}) {
+function Rail({ active }: { active: string }) {
   return (
     <div className="fixed right-4 top-1/2 z-[60] hidden -translate-y-1/2 flex-col items-center gap-6 md:flex pointer-events-auto">
       <span className="absolute inset-y-[-1.5rem] w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent pointer-events-none" />
@@ -438,16 +345,9 @@ function Rail({
           aria-label={n}
           className="group relative flex h-4 w-4 items-center justify-center"
         >
-          <span
-            className={`rail-dot ${active === n
-                ? "is-on"
-                : ""
-              }`}
-          />
+          <span className={`rail-dot ${active === n ? "is-on" : ""}`} />
 
-          <span className="rail-tip">
-            {n.toUpperCase()}
-          </span>
+          <span className="rail-tip">{n.toUpperCase()}</span>
         </a>
       ))}
     </div>
@@ -455,70 +355,55 @@ function Rail({
 }
 
 /* -------------------------------------------------------------------------- */
-/* MAIN PAGE */
+/* MAIN */
 /* -------------------------------------------------------------------------- */
 
 function Index() {
-  const [
-    registrationOpen,
-    setRegistrationOpen,
-  ] = useState(false);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
 
-  const [
-    registrationEventId,
-    setRegistrationEventId,
-  ] = useState<string | null>(null);
+  const [registrationEventId, setRegistrationEventId] = useState<string | null>(null);
+
+  const [active, setActive] = useState("home");
+
+  const [ev, setEv] = useState<Ev | null>(null);
+
+  const [place, setPlace] = useState<string | null>(null);
+
+  const [zoom, setZoom] = useState(false);
+
+  /* NEW:
+     Controls the Home REGISTER button.
+  */
+  const [showHomeRegister, setShowHomeRegister] = useState(true);
+
+  const homeImage = useRef<HTMLImageElement>(null);
+
+  const heroContent = useRef<HTMLDivElement>(null);
+
+  const scrollCue = useRef<HTMLDivElement>(null);
+
+  const sign = useRef<HTMLDivElement>(null);
 
   const loaded = true;
 
-  const [active, setActive] =
-    useState("home");
-
-  const [ev, setEv] =
-    useState<Ev | null>(null);
-
-  const [place, setPlace] =
-    useState<string | null>(null);
-
-  const [zoom, setZoom] =
-    useState(false);
-
-  const homeImage =
-    useRef<HTMLImageElement>(null);
-
-  const heroContent =
-    useRef<HTMLDivElement>(null);
-
-  const scrollCue =
-    useRef<HTMLDivElement>(null);
-
-  const sign =
-    useRef<HTMLDivElement>(null);
-
   /* ---------------------------------------------------------------------- */
-  /* TEXT SCROLL REVEAL                                                     */
+  /* TEXT REVEAL                                                            */
   /* ---------------------------------------------------------------------- */
 
   useEffect(() => {
-    if (!loaded) return;
-
-    const cleanup =
-      initTextReveal();
+    const cleanup = initTextReveal();
 
     return cleanup;
-  }, [loaded]);
+  }, []);
 
   useEffect(() => {
-    if (!loaded) return;
-
-    const cleanup =
-      initSectionReveal();
+    const cleanup = initSectionReveal();
 
     return cleanup;
-  }, [loaded]);
+  }, []);
 
   /* ---------------------------------------------------------------------- */
-  /* HOME SCROLL EFFECT                                                     */
+  /* HOME SCROLL                                                            */
   /* ---------------------------------------------------------------------- */
 
   useEffect(() => {
@@ -527,71 +412,51 @@ function Index() {
     const updateHome = () => {
       raf = 0;
 
-      const y = Math.min(
-        1,
-        window.scrollY / 900,
-      );
+      const scrollY = window.scrollY;
+
+      const y = Math.min(1, scrollY / 900);
+
+      /*
+       * Show button only while the user
+       * is inside the Home hero.
+       */
+      setShowHomeRegister(scrollY < window.innerHeight * 0.9);
 
       if (homeImage.current) {
-        homeImage.current.style.transform =
-          `scale(${1 + y * 0.18})`;
+        homeImage.current.style.transform = `scale(${1 + y * 0.18})`;
       }
 
       if (heroContent.current) {
-        heroContent.current.style.opacity =
-          String(1 - y * 1.6);
+        heroContent.current.style.opacity = String(1 - y * 1.6);
 
-        heroContent.current.style.transform =
-          `translate3d(0, ${-y * 80}px, 0)`;
+        heroContent.current.style.transform = `translate3d(0, ${-y * 80}px, 0)`;
       }
 
       if (scrollCue.current) {
-        scrollCue.current.style.opacity =
-          String(
-            Math.max(0, 1 - y * 4),
-          );
+        scrollCue.current.style.opacity = String(Math.max(0, 1 - y * 4));
       }
 
       if (sign.current) {
-        sign.current.style.opacity =
-          String(
-            Math.max(0, 1 - y * 2.2),
-          );
+        sign.current.style.opacity = String(Math.max(0, 1 - y * 2.2));
       }
     };
 
     const onScroll = () => {
       if (!raf) {
-        raf = requestAnimationFrame(
-          updateHome,
-        );
+        raf = requestAnimationFrame(updateHome);
       }
     };
 
     updateHome();
 
-    window.addEventListener(
-      "scroll",
-      onScroll,
-      { passive: true },
-    );
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-    window.addEventListener(
-      "resize",
-      onScroll,
-      { passive: true },
-    );
+    window.addEventListener("resize", onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        onScroll,
-      );
+      window.removeEventListener("scroll", onScroll);
 
-      window.removeEventListener(
-        "resize",
-        onScroll,
-      );
+      window.removeEventListener("resize", onScroll);
 
       cancelAnimationFrame(raf);
     };
@@ -602,72 +467,45 @@ function Index() {
   /* ---------------------------------------------------------------------- */
 
   useEffect(() => {
-    const obs =
-      new IntersectionObserver(
-        (entries) => {
-          entries.forEach(
-            (entry) => {
-              if (
-                entry.isIntersecting
-              ) {
-                setActive(
-                  entry.target.id,
-                );
-              }
-            },
-          );
-        },
-        {
-          rootMargin:
-            "-45% 0px -45% 0px",
-          threshold: 0,
-        },
-      );
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0,
+      },
+    );
 
     NAV.forEach((n) => {
-      const el =
-        document.getElementById(n);
+      const el = document.getElementById(n);
 
       if (el) {
         obs.observe(el);
       }
     });
 
-    return () =>
-      obs.disconnect();
+    return () => obs.disconnect();
   }, []);
 
   return (
     <main className="bg-background text-foreground">
-
-      {/* ---------------------------------------------------------------- */}
-      {/* NAVIGATION                                                        */}
-      {/* ---------------------------------------------------------------- */}
-
-      <Nav
-        active={active}
-        onRegister={() => {
-          setRegistrationEventId(
-            null,
-          );
-          setRegistrationOpen(true);
-        }}
-      />
+      <Nav active={active} />
 
       <Chrome />
 
       <Rail active={active} />
 
-      {/* ---------------------------------------------------------------- */}
-      {/* HOME                                                             */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* HOME                                                               */}
+      {/* ================================================================== */}
 
-      <section
-        id="home"
-        className="relative h-[180vh] animate-crack"
-      >
+      <section id="home" className="relative h-[180vh] animate-crack">
         <div className="sticky top-0 h-screen overflow-hidden">
-
           <img
             ref={homeImage}
             src={cave}
@@ -677,8 +515,7 @@ function Index() {
             className="bg-photo absolute inset-0 h-full w-full object-cover pointer-events-none"
             style={{
               transform: "scale(1)",
-              transformOrigin:
-                "55% 50%",
+              transformOrigin: "55% 50%",
               willChange: "transform",
             }}
           />
@@ -687,15 +524,14 @@ function Index() {
 
           <div className="rays pointer-events-none" />
 
+          {/* HERO CONTENT */}
           <div
             ref={heroContent}
             className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
             style={{
               opacity: 1,
-              transform:
-                "translate3d(0,0,0)",
-              willChange:
-                "opacity, transform",
+              transform: "translate3d(0,0,0)",
+              willChange: "opacity, transform",
             }}
           >
             <div className="hero-veil pointer-events-none absolute inset-0" />
@@ -703,10 +539,6 @@ function Index() {
             <p className="animate-rise presents relative font-display text-[10px] tracking-[0.35em] md:text-xs">
               ACM VVITU STUDENT CHAPTER PRESENTS
             </p>
-
-            {/* ---------------------------------------------------------- */}
-            {/* CORRECTED SPARDHA LOGO                                    */}
-            {/* ---------------------------------------------------------- */}
 
             <h1 className="animate-rise relative mt-4">
               <span className="mx-auto block w-[min(80vw,620px)]">
@@ -717,10 +549,8 @@ function Index() {
                   height={721}
                   className="block w-full"
                   style={{
-                    mixBlendMode:
-                      "screen",
-                    background:
-                      "transparent",
+                    mixBlendMode: "screen",
+                    background: "transparent",
                   }}
                 />
               </span>
@@ -741,36 +571,41 @@ function Index() {
                 animationDelay: ".6s",
               }}
             >
-              <span className="fest-script">
-                The Annual Techno Fest of
-              </span>
+              <span className="fest-script">The Annual Techno Fest of</span>
 
               <span className="fest-univ">
-                Vasireddy Venkatadri
-                International Technological
-                University
+                Vasireddy Venkatadri International Technological University
               </span>
             </p>
+
+            {/* REGISTER NOW BUTTON INSIDE HERO FLOW */}
+            <div className="pointer-events-auto relative mt-6 md:mt-8">
+              <button
+                type="button"
+                className="home-register-button"
+                aria-label="Register now"
+                onClick={() => {
+                  setRegistrationEventId(null);
+                  setRegistrationOpen(true);
+                }}
+              >
+                REGISTER NOW
+              </button>
+            </div>
           </div>
 
+          {/* SCROLL */}
           <div
             ref={scrollCue}
             className="scroll-cue pointer-events-none absolute bottom-10 left-8 hidden flex-col items-center gap-2 font-display text-[10px] font-semibold tracking-[0.4em] text-parchment legible md:flex"
-            style={{
-              opacity: 1,
-            }}
           >
             <span>SCROLL</span>
+
             <span className="h-10 w-px bg-primary" />
           </div>
 
-          <div
-            ref={sign}
-            className="sign pointer-events-none"
-            style={{
-              opacity: 1,
-            }}
-          >
+          {/* EXPEDITION SIGN */}
+          <div ref={sign} className="sign pointer-events-none">
             <div className="woodboard sign-board">
               <p className="font-display font-semibold text-parchment/90 legible">
                 EXPEDITION DATES
@@ -787,38 +622,32 @@ function Index() {
           </div>
         </div>
 
-        <div
-          className="home-about-transition pointer-events-none"
-          aria-hidden="true"
-        >
+        <div className="home-about-transition pointer-events-none" aria-hidden="true">
           <div className="transition-fog pointer-events-none" />
           <div className="transition-glow pointer-events-none" />
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* ABOUT                                                            */}
-      {/* ---------------------------------------------------------------- */}
+
+
+      {/* ================================================================== */}
+      {/* ABOUT                                                              */}
+      {/* ================================================================== */}
 
       <AboutScene />
 
-      {/* ---------------------------------------------------------------- */}
-      {/* EVENTS                                                           */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* EVENTS                                                             */}
+      {/* ================================================================== */}
 
-      <section
-        id="events"
-        className="relative py-28"
-      >
+      <section id="events" className="relative py-28">
         <div className="relative z-10 mx-auto max-w-6xl px-4">
           <div className="scrim mx-auto max-w-3xl px-6 py-8 text-center">
             <p className="font-display text-xs font-semibold tracking-[0.5em] text-primary chapter">
               CHAMBER II
             </p>
 
-            <h2 className="engraved mt-3 text-5xl font-bold md:text-7xl">
-              THE EXPEDITION MAP
-            </h2>
+            <h2 className="engraved mt-3 text-5xl font-bold md:text-7xl">THE EXPEDITION MAP</h2>
 
             <p className="mt-3 font-serif text-xl font-semibold italic text-parchment">
               Choose a territory. Begin your discovery.
@@ -831,26 +660,18 @@ function Index() {
           ev={ev}
           onPick={setEv}
           onRegister={(id) => {
-            setRegistrationEventId(
-              id,
-            );
-            setRegistrationOpen(
-              true,
-            );
+            setRegistrationEventId(id);
+            setRegistrationOpen(true);
           }}
         />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4">
           <div className="scrim mx-auto mt-28 max-w-3xl px-6 py-8 text-center">
-            <h2 className="engraved text-4xl font-bold md:text-6xl">
-              SPOT EVENTS
-            </h2>
+            <h2 className="engraved text-4xl font-bold md:text-6xl">SPOT EVENTS</h2>
 
             <p className="mx-auto mt-4 max-w-xl font-serif text-xl font-semibold text-parchment">
-              On-the-spot challenges and surprises
-              await! Navigate through our
-              interactive gallery to discover the
-              exciting spot events.
+              On-the-spot challenges and surprises await! Navigate through our interactive gallery
+              to discover the exciting spot events.
             </p>
 
             <SpotEvents />
@@ -858,28 +679,21 @@ function Index() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* CAMPUS                                                           */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* CAMPUS                                                             */}
+      {/* ================================================================== */}
 
-      <section
-        id="campus"
-        className="relative overflow-hidden py-28"
-      >
+      <section id="campus" className="relative overflow-hidden py-28">
         <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
           <div className="scrim mx-auto max-w-3xl px-6 py-8">
             <p className="font-display text-xs font-semibold tracking-[0.5em] text-primary chapter">
               CHAMBER III
             </p>
 
-            <h2 className="engraved mt-3 text-5xl font-bold md:text-7xl">
-              THE CAMPUS
-            </h2>
+            <h2 className="engraved mt-3 text-5xl font-bold md:text-7xl">THE CAMPUS</h2>
 
             <p className="mt-3 font-serif text-xl font-semibold italic text-parchment">
-              {place
-                ? `Arrived at ${place}`
-                : "Select a landmark to travel there."}
+              {place ? `Arrived at ${place}` : "Select a landmark to travel there."}
             </p>
           </div>
 
@@ -893,36 +707,23 @@ function Index() {
                 className="block h-auto w-full pointer-events-none"
               />
 
-              {SPOTS.map(
-                ([n, x, y, w, h]) => (
-                  <button
-                    type="button"
-                    key={n}
-                    aria-label={n}
-                    onClick={() =>
-                      setPlace(
-                        n === place
-                          ? null
-                          : n,
-                      )
-                    }
-                    className={`hs ${place === n
-                        ? "is-on"
-                        : ""
-                      }`}
-                    style={{
-                      left: `${x}%`,
-                      top: `${y}%`,
-                      width: `${w}%`,
-                      height: `${h}%`,
-                    }}
-                  >
-                    <span className="hs-tag">
-                      {n}
-                    </span>
-                  </button>
-                ),
-              )}
+              {SPOTS.map(([n, x, y, w, h]) => (
+                <button
+                  type="button"
+                  key={n}
+                  aria-label={n}
+                  onClick={() => setPlace(n === place ? null : n)}
+                  className={`hs ${place === n ? "is-on" : ""}`}
+                  style={{
+                    left: `${x}%`,
+                    top: `${y}%`,
+                    width: `${w}%`,
+                    height: `${h}%`,
+                  }}
+                >
+                  <span className="hs-tag">{n}</span>
+                </button>
+              ))}
             </div>
 
             <div className="scrim px-6 py-8">
@@ -935,17 +736,12 @@ function Index() {
                   <button
                     type="button"
                     key={n}
-                    onClick={() =>
-                      setPlace(
-                        n === place
-                          ? null
-                          : n,
-                      )
-                    }
-                    className={`border px-3 py-2 text-left font-display text-[11px] font-semibold tracking-[0.15em] ${place === n
+                    onClick={() => setPlace(n === place ? null : n)}
+                    className={`border px-3 py-2 text-left font-display text-[11px] font-semibold tracking-[0.15em] ${
+                      place === n
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-background/60 text-parchment"
-                      }`}
+                    }`}
                   >
                     {n.toUpperCase()}
                   </button>
@@ -954,9 +750,7 @@ function Index() {
 
               <button
                 type="button"
-                onClick={() =>
-                  setZoom(true)
-                }
+                onClick={() => setZoom(true)}
                 className="shine mt-6 border border-primary/70 bg-background/60 px-5 py-2 font-display text-xs font-semibold tracking-[0.3em] text-primary"
               >
                 VIEW FULL MAP
@@ -967,9 +761,7 @@ function Index() {
           {place && (
             <button
               type="button"
-              onClick={() =>
-                setPlace(null)
-              }
+              onClick={() => setPlace(null)}
               className="mt-6 border border-parchment/40 px-5 py-2 font-display text-xs tracking-[0.25em] text-parchment"
             >
               CLEAR SELECTION
@@ -978,12 +770,7 @@ function Index() {
         </div>
 
         {zoom && (
-          <div
-            className="reg-back"
-            onClick={() =>
-              setZoom(false)
-            }
-          >
+          <div className="reg-back" onClick={() => setZoom(false)}>
             <img
               src={campusMap}
               alt="Campus map, full view"
@@ -993,24 +780,19 @@ function Index() {
         )}
       </section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* CONTACT                                                          */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* CONTACT                                                            */}
+      {/* ================================================================== */}
 
       <ContactSection />
 
-      {/* ---------------------------------------------------------------- */}
-      {/* FOOTER                                                           */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* FOOTER                                                             */}
+      {/* ================================================================== */}
 
-      <footer
-        id="footer"
-        className="relative overflow-hidden pt-40"
-      >
+      <footer id="footer" className="relative overflow-hidden pt-40">
         <div className="scrim relative z-10 mx-auto max-w-5xl px-4 pb-10 pt-10 text-center">
-          <h2 className="engraved text-3xl font-bold md:text-5xl">
-            THE EXPEDITION IS COMPLETE.
-          </h2>
+          <h2 className="engraved text-3xl font-bold md:text-5xl">THE EXPEDITION IS COMPLETE.</h2>
 
           <h2 className="mt-2 font-display text-xl font-semibold tracking-[0.4em] text-parchment legible md:text-3xl">
             THE UNKNOWN REMAINS.
@@ -1022,42 +804,33 @@ function Index() {
 
           <div className="mt-4 flex flex-wrap justify-center gap-5 font-display text-[11px] font-semibold tracking-[0.25em] text-parchment/90">
             {NAV.map((n) => (
-              <a
-                key={n}
-                href={`#${n}`}
-                className="hover:text-parchment"
-              >
+              <a key={n} href={`#${n}`} className="hover:text-parchment">
                 {n.toUpperCase()}
               </a>
             ))}
 
-            <span className="text-primary/90">
-              REGISTRATIONS OPENING SOON
-            </span>
+            <span className="text-primary/90">REGISTRATIONS OPENING SOON</span>
           </div>
 
           <p className="mt-6 text-sm font-medium text-parchment/90">
-            acm.vvit@gmail.com · +91 63007 01013
+            acm.vvit@gmail.com · +91 78426 71226
           </p>
 
           <p className="text-sm font-medium text-parchment/90">
-            Vasireddy Venkatadri International
-            Technological University, Nambur,
-            Guntur — 522508
+            Vasireddy Venkatadri International Technological University, Nambur, Guntur — 522508
           </p>
 
           <p className="mt-6 text-xs text-parchment/75">
-            VVITU ACM Student Chapter · © 2026
-            VVITU ACM Student Chapter
+            VVITU ACM Student Chapter · © 2026 VVITU ACM Student Chapter
           </p>
         </div>
 
         <div className="h-40 bg-gradient-to-b from-transparent to-background pointer-events-none" />
       </footer>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* REGISTRATION                                                     */}
-      {/* ---------------------------------------------------------------- */}
+      {/* ================================================================== */}
+      {/* REGISTRATION MODAL                                                 */}
+      {/* ================================================================== */}
 
       <RegistrationModal
         open={registrationOpen}
@@ -1065,9 +838,7 @@ function Index() {
         events={EVENTS}
         onClose={() => {
           setRegistrationOpen(false);
-          setRegistrationEventId(
-            null,
-          );
+          setRegistrationEventId(null);
         }}
       />
     </main>

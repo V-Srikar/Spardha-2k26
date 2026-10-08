@@ -11,9 +11,7 @@ const ADDRESS =
 
 const MAP_URL =
   "https://www.google.com/maps/search/?api=1&query=" +
-  encodeURIComponent(
-    "Vasireddy Venkatadri International Technological University, Nambur, Guntur"
-  );
+  encodeURIComponent("Vasireddy Venkatadri International Technological University, Nambur, Guntur");
 
 const FEST_START = new Date("2026-10-12T09:00:00+05:30").getTime();
 
@@ -62,13 +60,7 @@ const I = {
   check: <path d="m5 12 5 5 9-10" />,
 };
 
-function Icon({
-  d,
-  className = "",
-}: {
-  d: keyof typeof I;
-  className?: string;
-}) {
+function Icon({ d, className = "" }: { d: keyof typeof I; className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -100,11 +92,7 @@ function Countdown({ now }: { now: number | null }) {
   ] as const;
 
   return (
-    <div
-      className="ct-count"
-      role="timer"
-      aria-label="Time until Spardha 2K26"
-    >
+    <div className="ct-count" role="timer" aria-label="Time until Spardha 2K26">
       {parts.map(([label, value]) => (
         <div key={label}>
           <b>{String(value).padStart(2, "0")}</b>
@@ -143,13 +131,7 @@ export function ContactSection() {
     }
   };
 
-  const row = (
-    id: string,
-    icon: keyof typeof I,
-    label: string,
-    value: string,
-    href: string
-  ) => (
+  const row = (id: string, icon: keyof typeof I, label: string, value: string, href: string) => (
     <div className="ct-row" key={id}>
       <a
         href={href}
@@ -173,81 +155,49 @@ export function ContactSection() {
         aria-label={`Copy ${value}`}
         onClick={() => copy(id, value)}
       >
-        <Icon
-          d={copied === id ? "check" : "copy"}
-          className="h-4 w-4"
-        />
+        <Icon d={copied === id ? "check" : "copy"} className="h-4 w-4" />
         <span>{copied === id ? "Copied" : "Copy"}</span>
       </button>
     </div>
   );
 
-  const next = TIMELINE.findIndex(
-    (item) => now !== null && item.end >= now
-  );
+  const next = TIMELINE.findIndex((item) => now !== null && item.end >= now);
 
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden py-24 md:py-28"
-    >
+    <section id="contact" className="relative overflow-hidden py-24 md:py-28">
       <div className="relative z-10 mx-auto max-w-6xl px-4">
-
         {/* HEADER */}
         <div className="scrim mx-auto max-w-3xl px-6 py-8 text-center">
           <p className="chapter font-display text-xs font-semibold tracking-[0.5em] text-primary">
             CHAMBER IV
           </p>
 
-          <h2 className="engraved mt-3 text-5xl font-bold md:text-6xl">
-            CONTACT US
-          </h2>
+          <h2 className="engraved mt-3 text-5xl font-bold md:text-6xl">CONTACT US</h2>
 
           <p className="mt-3 font-serif text-xl font-semibold text-parchment">
-            Connect with us for queries, partnerships, or to join the Tech
-            revolution.
+            Connect with us for queries, partnerships, or to join the Tech revolution.
           </p>
         </div>
 
         {/* CONTACT CONTENT */}
         <div className="mt-10 space-y-6">
-
           {/* REACH US */}
           <div className="ct-card">
             <h3 className="ct-h">REACH US</h3>
 
             <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {PHONES.map((phone, index) =>
-                row(
-                  `p${index}`,
-                  "phone",
-                  "Call",
-                  phone,
-                  `tel:${phone.replace(/\s/g, "")}`
-                )
+                row(`p${index}`, "phone", "Call", phone, `tel:${phone.replace(/\s/g, "")}`),
               )}
 
-              {row(
-                "ig",
-                "insta",
-                "Instagram",
-                `@${INSTA}`,
-                `https://instagram.com/${INSTA}`
-              )}
+              {row("ig", "insta", "Instagram", `@${INSTA}`, `https://instagram.com/${INSTA}`)}
 
-              {row(
-                "em",
-                "mail",
-                "Email",
-                EMAIL,
-                `mailto:${EMAIL}`
-              )}
+              {row("em", "mail", "Email", EMAIL, `mailto:${EMAIL}`)}
             </div>
           </div>
 
           {/* BOTTOM SECTION */}
           <div className="grid gap-6 lg:grid-cols-5">
-
             {/* IMPORTANT DATES */}
             <div className="ct-card lg:col-span-3">
               <h3 className="ct-h">IMPORTANT DATES</h3>
@@ -256,41 +206,18 @@ export function ContactSection() {
 
               <ol className="ct-tl mt-5">
                 {TIMELINE.map((item, index) => {
-                  const done =
-                    now !== null && item.end < now;
+                  const done = now !== null && item.end < now;
 
                   return (
-                    <li
-                      key={item.label}
-                      className={
-                        done
-                          ? "done"
-                          : index === next
-                            ? "next"
-                            : ""
-                      }
-                    >
-                      <i>
-                        {done && (
-                          <Icon
-                            d="check"
-                            className="h-3 w-3"
-                          />
-                        )}
-                      </i>
+                    <li key={item.label} className={done ? "done" : index === next ? "next" : ""}>
+                      <i>{done && <Icon d="check" className="h-3 w-3" />}</i>
 
                       <div>
                         <small>{item.label}</small>
                         <strong>{item.text}</strong>
                       </div>
 
-                      <em>
-                        {done
-                          ? "Completed"
-                          : index === next
-                            ? "Upcoming"
-                            : ""}
-                      </em>
+                      <em>{done ? "Completed" : index === next ? "Upcoming" : ""}</em>
                     </li>
                   );
                 })}
@@ -307,9 +234,7 @@ export function ContactSection() {
                 </span>
 
                 <div>
-                  <p className="font-semibold text-parchment">
-                    VVIT University, Guntur
-                  </p>
+                  <p className="font-semibold text-parchment">VVIT University, Guntur</p>
 
                   <p className="mt-2 text-sm font-medium leading-relaxed text-parchment/85">
                     {ADDRESS}
@@ -318,27 +243,15 @@ export function ContactSection() {
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href={MAP_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ct-send ct-inline"
-                >
+                <a href={MAP_URL} target="_blank" rel="noreferrer" className="ct-send ct-inline">
                   GET DIRECTIONS
                 </a>
 
-                <button
-                  type="button"
-                  className="ct-ghost"
-                  onClick={() => copy("addr", ADDRESS)}
-                >
-                  {copied === "addr"
-                    ? "ADDRESS COPIED"
-                    : "COPY ADDRESS"}
+                <button type="button" className="ct-ghost" onClick={() => copy("addr", ADDRESS)}>
+                  {copied === "addr" ? "ADDRESS COPIED" : "COPY ADDRESS"}
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>

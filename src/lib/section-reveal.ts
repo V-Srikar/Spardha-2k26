@@ -1,13 +1,9 @@
 export function initSectionReveal() {
-  const sections = document.querySelectorAll<HTMLElement>(
-    "main > section, main > footer"
-  );
+  const sections = document.querySelectorAll<HTMLElement>("main > section, main > footer");
 
   if (!sections.length) return () => {};
 
-  if (
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     sections.forEach((section) => {
       section.classList.add("section-visible");
     });
@@ -34,7 +30,7 @@ export function initSectionReveal() {
     {
       threshold: 0.12,
       rootMargin: "0px 0px -8% 0px",
-    }
+    },
   );
 
   sections.forEach((section) => observer.observe(section));

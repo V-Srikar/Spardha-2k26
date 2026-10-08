@@ -51,9 +51,7 @@ export type RegResult =
       fields?: Record<string, string>;
     };
 
-export async function submitRegistration(
-  data: RegData,
-): Promise<RegResult> {
+export async function submitRegistration(data: RegData): Promise<RegResult> {
   try {
     /*
      * ---------------------------------------------------------
@@ -97,23 +95,17 @@ export async function submitRegistration(
          * All team-event Participant 2 details
          * are stored inside ONE JSONB column.
          */
-        participant2_by_event:
-          data.participant2ByEvent,
+        participant2_by_event: data.participant2ByEvent,
       })
       .select("registration_id")
       .single();
 
     if (error) {
-      console.error(
-        "Supabase registration error:",
-        error,
-      );
+      console.error("Supabase registration error:", error);
 
       return {
         status: "error",
-        message:
-          error.message ||
-          "Registration failed. Please try again.",
+        message: error.message || "Registration failed. Please try again.",
       };
     }
 
@@ -123,32 +115,22 @@ export async function submitRegistration(
      * ---------------------------------------------------------
      */
 
-    const { error: emailError } =
-      await supabase.functions.invoke(
-        "send-registration-email",
-        {
-          body: {
-            registrationId:
-              inserted.registration_id,
+    const { error: emailError } = await supabase.functions.invoke("send-registration-email", {
+      body: {
+        registrationId: inserted.registration_id,
 
-            event: data.event,
-            day: data.day,
-            date: data.date,
+        event: data.event,
+        day: data.day,
+        date: data.date,
 
-            participant1:
-              data.participant1,
+        participant1: data.participant1,
 
-            participant2ByEvent:
-              data.participant2ByEvent,
-          },
-        },
-      );
+        participant2ByEvent: data.participant2ByEvent,
+      },
+    });
 
     if (emailError) {
-      console.error(
-        "Email sending error:",
-        emailError,
-      );
+      console.error("Email sending error:", emailError);
     }
 
     /*
@@ -162,15 +144,11 @@ export async function submitRegistration(
       id: inserted.registration_id,
     };
   } catch (error) {
-    console.error(
-      "Registration error:",
-      error,
-    );
+    console.error("Registration error:", error);
 
     return {
       status: "error",
-      message:
-        "Something went wrong. Please try again.",
+      message: "Something went wrong. Please try again.",
     };
   }
 }

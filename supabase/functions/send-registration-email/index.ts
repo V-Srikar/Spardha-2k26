@@ -2,15 +2,13 @@ import nodemailer from "npm:nodemailer";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 const BANNER_URL =
   "https://zkwqtpgosebzcmpqifze.supabase.co/storage/v1/object/public/spardha-assets/spardha-email-banner.jpg";
 
-const INSTAGRAM_ICON_URL =
-  "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png";
+const INSTAGRAM_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -106,22 +104,12 @@ Deno.serve(async (req) => {
        OLD FORMAT SUPPORT
     ----------------------------------------- */
 
-    if (
-      !participant2Html &&
-      Array.isArray(teamParticipants) &&
-      teamParticipants.length > 0
-    ) {
+    if (!participant2Html && Array.isArray(teamParticipants) && teamParticipants.length > 0) {
       participant2Html = teamParticipants
         .map(
-          (participant: {
-            eventName?: string;
-            name?: string;
-            email?: string;
-          }) => `
+          (participant: { eventName?: string; name?: string; email?: string }) => `
             <div style="margin-top:12px;">
-              <strong>Participant 2 for ${
-                participant.eventName ?? ""
-              } :</strong>
+              <strong>Participant 2 for ${participant.eventName ?? ""} :</strong>
               ${participant.name ?? ""}
             </div>
 
@@ -525,10 +513,7 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to send email",
+        error: error instanceof Error ? error.message : "Failed to send email",
       }),
       {
         status: 500,

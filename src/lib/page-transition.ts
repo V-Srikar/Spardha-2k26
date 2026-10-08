@@ -18,13 +18,16 @@ export function initPageTransition(): () => void {
     contact: ["CHAMBER IV", "CONTACT US"],
   };
   const FEATHER = 112; // px, must match the mask feather in styles.css
-  const T_CLOSE = 720, T_HOLD = 460, T_OPEN = 950;
+  const T_CLOSE = 720,
+    T_HOLD = 460,
+    T_OPEN = 950;
 
   const root = document.documentElement;
   const el = document.createElement("div");
   el.className = "pt";
   el.setAttribute("aria-hidden", "true");
-  el.innerHTML = '<div class="pt-v"></div><div class="pt-ring"></div><div class="pt-c"><small></small><b></b><i></i></div>';
+  el.innerHTML =
+    '<div class="pt-v"></div><div class="pt-ring"></div><div class="pt-c"><small></small><b></b><i></i></div>';
   document.body.appendChild(el);
   const ring = el.querySelector(".pt-ring") as HTMLElement;
   const card = el.querySelector(".pt-c") as HTMLElement;
@@ -58,10 +61,18 @@ export function initPageTransition(): () => void {
     if (raf) return;
     const from = window.scrollY;
     const max = Math.max(0, root.scrollHeight - window.innerHeight);
-    const to = Math.min(max, Math.max(0, id === "home" ? 0 : target.getBoundingClientRect().top + from));
-    if (Math.abs(to - from) < 4) { history.replaceState(null, "", hash); return; }
-    small.textContent = LABELS[id][0];
-    big.textContent = LABELS[id][1];
+    const to = Math.min(
+      max,
+      Math.max(0, id === "home" ? 0 : target.getBoundingClientRect().top + from),
+    );
+    if (Math.abs(to - from) < 4) {
+      history.replaceState(null, "", hash);
+      return;
+    }
+    if (LABELS[id]) {
+      small.textContent = LABELS[id][0];
+      big.textContent = LABELS[id][1];
+    }
     const R0 = Math.hypot(window.innerWidth, window.innerHeight) / 2 + 40;
     paint(R0, R0, 0);
     el.classList.add("on");
@@ -82,7 +93,10 @@ export function initPageTransition(): () => void {
       } else if (t < T_CLOSE + T_HOLD + T_OPEN) {
         const p = (t - T_CLOSE - T_HOLD) / T_OPEN;
         paint(lerp(-FEATHER, R0, outCubic(p)), R0, 1 - c01(p / 0.28));
-      } else { finish(); return; }
+      } else {
+        finish();
+        return;
+      }
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
@@ -90,7 +104,9 @@ export function initPageTransition(): () => void {
 
   const onClick = (e: MouseEvent) => {
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    const a = (e.target instanceof Element ? e.target.closest('a[href^="#"], button[data-goto]') : null) as HTMLElement | null;
+    const a = (
+      e.target instanceof Element ? e.target.closest('a[href^="#"], button[data-goto]') : null
+    ) as HTMLElement | null;
     if (!a) return;
     const hash = a.getAttribute("href") || "#" + (a.getAttribute("data-goto") || "");
     const id = hash.slice(1);
@@ -101,7 +117,9 @@ export function initPageTransition(): () => void {
     travel(id, hash, target);
   };
 
-  const lock = (e: Event) => { if (raf) e.preventDefault(); };
+  const lock = (e: Event) => {
+    if (raf) e.preventDefault();
+  };
 
   document.addEventListener("click", onClick, true);
   window.addEventListener("wheel", lock, { passive: false, capture: true });
